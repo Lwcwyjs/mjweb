@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://xfire.codehaus.org/config/1.0">
+
+<service>
+
+<name>services</name>
+
+<namespace>
+http://localhost:8080/HelloWorldService
+</namespace>
+
+<serviceClass>
+pojo.IHelloWorldService
+</serviceClass>
+
+<implementationClass>
+pojo.CHelloWorldService
+</implementationClass>
+
+</service>
+
+
+
+</beans>

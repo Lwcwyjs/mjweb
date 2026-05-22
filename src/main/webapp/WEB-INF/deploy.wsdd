@@ -1,0 +1,18 @@
+<?xml version="1.0"encoding="UTF-8"?>
+<deployment xmlns="http:/xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+    <!-- service标签代表一个WebService服务 -->
+    <service name="pnwebAccess" provider="java:RPC">
+        <!-- 命名空间，使用wsdl2java生成客户端代码时，包路径为：com.ll.server -->
+        <!-- 假如发布服务地址为：http://localhost:8080/axiswebservice/services/HelloWorld -->
+        <!-- 如果属性wsdlTargetNamespace不设置的话，生成客户端代码的默认包路径为：localhost.axiswebservice.services -->
+    <parameter name="wsdlTargetNamespace" value="http://pnwebws" />
+    <parameter name="wsdlServicePort" value="pnwebAccess" />
+        <!-- 服务类路径 -->
+    <parameter name="className" value="com.webservice.pnwebws.implpnwebws" />
+    <parameter name="className" value="com.webservice.cyInnerInter.implcyws" />
+        <!-- * 代表所有的方法都暴露 -->
+    <parameter name="allowedMethods" value="*" />
+        <!-- 当前WebService的作用域，它有3个值，分别是：request每个请求、session每个用户、application所有请求 -->
+    <parameter name="scope" value="request" />
+    </service>
+</deployment>  

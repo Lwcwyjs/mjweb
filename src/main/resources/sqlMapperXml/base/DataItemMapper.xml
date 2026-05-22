@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.base.DataItemMapper">
+   
+   <insert id="insert" parameterType="java.lang.String" statementType="STATEMENT">
+       ${_parameter}
+   </insert>
+   
+   <update id="update" parameterType="java.lang.String" statementType="STATEMENT">
+       ${_parameter}
+   </update>
+   
+   <delete id="delete" parameterType="java.lang.String" statementType="STATEMENT">
+       ${_parameter}
+   </delete>
+
+   
+   <select id="selectObject" parameterType="java.lang.String" resultType="map" statementType="STATEMENT">
+       ${_parameter}
+   </select>
+   
+   <select id="selectMultiObject" parameterType="java.lang.String" resultType="java.util.HashMap" statementType="STATEMENT">
+       ${_parameter}
+   </select>
+   
+   <select id="selectCount" parameterType="java.lang.String" resultType="java.lang.Integer" statementType="STATEMENT">
+       ${_parameter}   
+   </select>
+
+   <select id="selectSum" parameterType="java.lang.String" resultType="java.lang.Integer" statementType="STATEMENT">
+       ${_parameter}   
+   </select>   
+   
+    
+</mapper>

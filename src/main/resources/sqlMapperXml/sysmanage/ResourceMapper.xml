@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.configmanage.ResourceMapper">
+	<resultMap id="BaseResultMap" type="com.model.configmange.SysResource">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="icon" property="icon" jdbcType="VARCHAR" />
+		<result column="pid" property="pid" jdbcType="BIGINT" />
+		<result column="seq" property="seq" jdbcType="TINYINT" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="resourcetype" property="resourcetype" jdbcType="TINYINT" />
+		<result column="createdate" property="createdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, name, url, description, icon, pid, seq, status,
+		resourcetype,
+		createdate
+	</sql>
+
+	<select id="findResourceById" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from ai_sys_resource
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<!-- 查询所有父菜单 -->
+	<select id="findResourceAllByTypeAndPidNull" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select distinct
+		<include refid="Base_Column_List" />
+		from ai_sys_resource
+		where resourcetype = #{resourceType}
+		and (pid is null or pid=-1)
+		order by seq
+	</select>
+
+	<select id="findResourceAllByTypeAndPid" resultMap="BaseResultMap">
+		select distinct
+		<include refid="Base_Column_List" />
+		from ai_sys_resource
+		where resourcetype = #{resourceType}
+		and pid = #{pid}
+		order by seq
+	</select>
+
+	<select id="findResourceListByRoleIdAndType" resultType="com.model.configmange.SysResource">
+		SELECT
+		s.id AS id,
+		s.NAME AS name,
+		s.url AS url,
+		s.description AS
+		description,
+		s.icon AS icon,
+		s.pid AS pid,
+		s.seq AS seq,
+		s. STATUS AS status,
+		s.resourcetype AS resourcetype,
+		s.createdate AS
+		createdate
+		FROM
+		ai_sys_role r
+		LEFT JOIN ai_sys_role_resource e ON r.id = e.role_id
+		LEFT JOIN
+		ai_sys_resource s ON e.resource_id = s.id
+		WHERE
+		r.id=${roleId}
+		<if test="resourceType!=null and resourceType!='' ">
+			and s.resourcetype = ${resourceType}
+		</if>
+		<if test="pid!=null and pid!='' ">
+			AND s.pid = ${pid}
+		</if>
+		<if test="type!=-1">
+			AND s.regroup in (${type},0)
+		</if>
+		order by pid,seq asc
+	</select>
+	
+	<select id="findResourceSonByregroup" resultType="com.model.configmange.SysResource">
+	   <choose>
+                <when test="Roleid==-1">
+                   select id,name,url,description,icon,pid,seq,status,resourcetype,createdate
+		           from ai_sys_resource
+		           where 1=1
+                </when>
+                <otherwise>
+                    select a.id,name,url,description,icon,pid,seq,status,resourcetype,createdate
+		           from ai_sys_resource a,ai_sys_role_resource_GRANT b
+		           where 1=1 and a.id=b.resource_id and role_id=${Roleid}
+                </otherwise>
+            </choose>
+		<if test="resourceType!=null and resourceType!='' ">
+			and resourcetype = ${resourceType}
+		</if>
+		
+			and regroup = ${regroup}
+			and pid = ${Pid}
+	</select>
+	<select id="findResourceSon" resultType="com.model.configmange.SysResource">
+		<choose>
+			<when test="Roleid==-1">
+				select id,name,url,description,icon,pid,seq,status,resourcetype,createdate
+				from ai_sys_resource
+				where 1=1
+			</when>
+			<otherwise>
+				select a.id,name,url,description,icon,pid,seq,status,resourcetype,createdate
+				from ai_sys_resource a,ai_sys_role_resource_GRANT b
+				where 1=1 and a.id=b.resource_id and role_id=${Roleid}
+			</otherwise>
+		</choose>
+		<if test="resourceType!=null and resourceType!='' ">
+			and resourcetype = ${resourceType}
+		</if>
+		and pid = ${Pid}
+	</select>
+	<select id="findresourceOneByRoleId" resultType="com.model.sysmanage.SysRole">
+		select *
+		from ai_sys_role
+		where id = ${roleId}
+	</select>
+	<select id="findResourceSonByregroupForGrant" resultType="com.model.configmange.SysResource">
+		select
+		s.id,s.name,s.url,s.description,s.icon,s.pid,s.seq,s.status,s.resourcetype,s.createdate
+		from ai_sys_resource s
+		
+		LEFT JOIN ai_sys_role_resource_grant e ON s.id = e.resource_id
+		where 
+		1=1
+		<if test="ParentRole!=-1">
+			and e.role_id = ${ParentRole}
+		</if>
+		<if test="regroup!=-1">
+			and regroup = ${regroup}
+		</if>
+		<if test="resourceType!=null and resourceType!='' ">
+			and resourcetype = ${resourceType}
+		</if>
+			and pid is not null
+			order by regroup asc
+	</select>
+	<select id="findResourceButtonByregroupForGrant" resultType="com.model.configmange.SysResource">
+		select
+		id,name,url,description,icon,pid,seq,status,resourcetype,createdate
+		from ai_sys_resource
+		where pid = ${pid}
+		<if test="resourceType!=null and resourceType!='' ">
+			and resourcetype = ${resourceType}
+		</if>
+	</select>
+</mapper>

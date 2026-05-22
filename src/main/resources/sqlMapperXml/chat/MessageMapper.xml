@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.chat.MessageMapper">
+    <insert id="saveMessage" parameterType="com.model.chat.Message">
+        insert into message(messageId,messageSender, messageReciver, messageDate, messageInfo, messageType, messageRead)
+        values (#{messageId},#{messageSender}, #{messageReciver}, #{messageDate}, #{messageInfo}, #{messageType}, #{messageRead})
+    </insert>
+    <select id="getMessages" parameterType="com.model.chat.Message"
+            resultType="com.model.chat.Message">
+        select *
+        from message
+        where ((messageSender = #{messageSender} and messageReciver = #{messageReciver})
+           or messageSender = #{messageReciver} or messageReciver = #{messageReciver})
+        order by messageDate asc
+    </select>
+    <select id="getMessagesall" parameterType="com.model.chat.Message"
+            resultType="com.model.chat.Message">
+        select *
+        from message
+        where messageSender = #{messageReciver} or messageReciver = #{messageReciver}
+        order by messageDate asc
+    </select>
+    <select id="getWxMessages" parameterType="com.model.chat.Message"
+            resultType="com.model.chat.WxMessage">
+        select *
+        from message
+        where messageSender = #{messageSender}
+           or messageReciver = #{messageSender}
+        order by messageDate asc
+    </select>
+    <select id="getMessage" parameterType="com.model.chat.Message" resultType="java.lang.String">
+        select top 1 messageInfo
+        from message
+        where ((messageSender = #{messageSender} and messageReciver = #{messageReciver})
+           or (messageSender = #{messageReciver} and messageReciver = #{messageSender})) and messageSender&lt;&gt;0
+        order by messageDate desc
+    </select>
+    <select id="getMessageall" parameterType="com.model.chat.Message" resultType="java.lang.String">
+        select top 1 messageInfo
+        from message
+        where (messageSender = #{messageSender} or messageReciver = #{messageSender})
+        order by messageDate desc
+    </select>
+
+
+    <update id="updateMessages" parameterType="com.model.chat.Message">
+        update message set messageRead=1,messagereader=#{messageReciver} where messageRead=0
+        <if test="messageSender != null and messageSender != ''">
+            and messageSender=#{messageSender}
+        </if>
+        <if test="messageReciver != null and messageReciver != ''">
+            and messageReciver=#{messageReciver}
+        </if>
+    </update>
+    <select id="getMessageNotReadCount" parameterType="com.model.chat.Message" resultType="java.lang.Long">
+        select count(messageId) count
+        from message
+        where messageReciver=#{messageReciver}
+          and messageSender=#{messageSender}
+          and isnull(messageRead,'0')='0'
+    </select>
+
+</mapper>

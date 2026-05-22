@@ -1,0 +1,98 @@
+.body
+{
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+}
+.H_table
+{
+	border: 1px solid #D3D3D3;
+	border-collapse: collapse;
+	margin-bottom: 3px;
+}
+.H_table td
+{
+	border: 1px solid #D3D3D3;
+	height: 15px;
+}
+.H_td1
+{
+	text-align: center;
+	background-color: #F1F1F1;
+	font-weight: bolder;
+	width: 100px;
+}
+.H_td11
+{
+	text-align: left;
+	background-color: #F1F1F1;
+	font-weight: bolder;
+	width: 100px;
+}
+.H_td12
+{
+	text-align: center;
+/* 	background-color: #F1F1F1;
+ */	font-weight: bolder;
+	width: 100px;
+}
+.H_td2
+{
+	padding-left: 3px;
+}
+.H_td3
+{
+	text-align: right;
+	padding-right: 5px;
+}
+#item
+{
+	padding: 5px 15px 0 15px;
+	margin: 0 auto;
+}
+.item_title
+{
+	font-size: 16px;
+	font-family: "Î¢ÈíÑÅºÚ";
+	color: Black;
+	font-weight: 600;
+	padding: 0 0 5px 0;
+	border-bottom: #D3D3D3 solid 1px;
+	letter-spacing: 8px;
+}
+.tishi
+{
+	padding: 10px 0;
+	overflow: auto;
+	border-bottom: solid #D3D3D3 3px;
+}
+.tishi span
+{
+	color: Black;
+	float: left;
+}
+.tishi ul
+{
+	margin: 0;
+	padding: 0;
+	float: left;
+	margin-left: 25px;
+}
+.tishi li
+{
+	margin-bottom: 5px;
+	color: #666;
+	list-style: decimal;
+}
+.page_span
+{
+	color: Red;
+	font-weight: bold;
+}
+.textbox
+{
+	height: 20px;
+	margin: 0;
+	padding: 0 2px;
+	box-sizing: content-box;
+}

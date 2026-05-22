@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+	<!-- <bean id="applicstionContext" class="org.apache.axis2.extensions.spring.receivers.ApplicationContextHolder"></bean>
+     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+     <bean id="propertyConfigurer" 
+     		class="com.commons.utils.EncryptablePropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config/jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+    <import resource="classpath:spring/spring-mybatis.xml"/>
+    <import resource="classpath:spring/spring-shiro.xml"/>
+    <import resource="classpath:spring/spring-cxf.xml"/>
+</beans>

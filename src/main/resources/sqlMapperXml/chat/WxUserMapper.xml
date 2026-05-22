@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.chat.WxUserMapper" >
+ <select id="login" parameterType="com.model.wechat.WxUser" resultType="com.model.wechat.WxUser">
+ 	select * from wxuser where userPhone=#{userPhone} and userPassword=#{userPassword}
+ </select>
+ <select id="getUserById" parameterType="java.lang.Long" resultType="com.model.wechat.WxUser">
+ 	select * from wxuser where userId=#{userId}
+  </select>
+  <select id="getChatFriendInfo" resultType="com.model.chat.ChatFriend" parameterType="com.model.chat.Message">
+ 	select * from wxuser
+	where ((userId in(select distinct(messageSender) from message where messageReciver=#{messageSender} and messageDate>#{messageDate}))
+	           or (userid in (select distinct(messageReciver) from message where (messageSender=#{messageSender} or messageReader=#{messageSender}) and messageDate>#{messageDate}))
+        or (userid in (select distinct(messageSender) from message where (messageReader=#{messageSender}) and messageDate>#{messageDate}))) order by gxsj desc
+
+ </select>
+    <select id="getChatFriendInfoall" resultType="com.model.chat.ChatFriend">
+        select * from messagehis order by messageDate desc
+
+    </select>
+    <select id="getChatFriendInfoWait" resultType="com.model.chat.ChatFriend" parameterType="java.lang.Long">
+        select * from wxuser
+        where (userId in(select distinct(messageSender) from message where messageReciver=#{loginId} and isnull(messageReader,'0')='0' and messageSender&lt;&gt;0))order by gxsj desc
+    </select>
+</mapper>

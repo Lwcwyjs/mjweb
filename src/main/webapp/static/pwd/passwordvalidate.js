@@ -1,0 +1,41 @@
+﻿function getPasswordStrong(pwd) {
+    var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+    var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+    var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+    return strongRegex.test(pwd);
+}
+function CheckIntensity(pwd, levelBar) {
+
+    var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+    var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+    var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+    if (false == enoughRegex.test(pwd)) {
+        levelBar.removeClass('pw-weak');
+        levelBar.removeClass('pw-medium');
+        levelBar.removeClass('pw-strong');
+        levelBar.addClass('pw-defule');
+        //密码小于六位的时候，密码强度图片都为灰色 
+    }
+    else if (strongRegex.test(pwd)) {
+        levelBar.removeClass('pw-weak');
+        levelBar.removeClass('pw-medium');
+        levelBar.removeClass('pw-strong');
+        levelBar.addClass('pw-strong');
+        //密码为八位及以上并且字母数字特殊字符三项都包括,强度最强 
+    }
+    else if (mediumRegex.test(pwd)) {
+        levelBar.removeClass('pw-weak');
+        levelBar.removeClass('pw-medium');
+        levelBar.removeClass('pw-strong');
+        levelBar.addClass('pw-medium');
+        //密码为七位及以上并且字母、数字、特殊字符三项中有两项，强度是中等 
+    }
+    else {
+        levelBar.removeClass('pw-weak');
+        levelBar.removeClass('pw-medium');
+        levelBar.removeClass('pw-strong');
+        levelBar.addClass('pw-weak');
+        //如果密码为6为及以下，就算字母、数字、特殊字符三项都包括，强度也是弱的 
+    }
+    return true;
+}

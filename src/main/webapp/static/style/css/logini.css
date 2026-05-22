@@ -1,0 +1,103 @@
+body{
+	margin:0px;
+	padding: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: #F5F5F5;
+}
+.fengx{
+	width: 100%;
+	background-color: #3F9E5A;
+	height: 3px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.kongg{
+	width: 50%;
+	border-bottom: 3px solid #ddd;
+	height: 35px;
+	float: left;
+}
+.xiabf{
+	width: 90%;
+	height: 90%;
+	background-color: #F5F5F5;
+	margin: auto;
+}
+.heads{
+	width: 100%;
+	height: 60px;
+	background-color: #fff;
+}
+.midlands{
+	width: 100%;
+	height: 95%;
+}
+.tpo{
+	width: 20%;
+	height: 100%;
+	text-align: center;
+	font-weight: bold;
+	float: left;
+}
+.tpo img{
+	width: 100%;
+	height: 90%;
+}
+.tpo input{
+	margin-top: 7%;
+	border-radius:5px;
+	border: 1px solid #ccc;
+	height: 25px;
+	width: 80%;
+}
+.tpod{
+	width: 40%;
+	height: 35px;
+	
+	float: right;
+	display: inline;
+	margin-top: 7%;
+}
+.dengl{
+	float: left;
+	width: 50%;
+	height: 35px;
+	border-bottom: 3px solid #3F9E5A;
+	line-height: 35px;
+}
+.tpo button{
+	border-radius:5px;
+	background-color: #3F9E5A;
+	border: 1px solid #3F9E5A;
+	width: 80%;
+	color: #fff;
+	height: 10%;
+	margin-top:10%;
+}
+.bottoms{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: #aaa;
+	font-size: 14px;
+}
+.tp{
+	float: left;
+	width: 100%;
+	height: 100%;
+}
+.tp img{
+	padding-left: 8%;;
+	margin-top: 10px;
+}
+.tp span{
+	position: absolute;
+    top: 15px;
+    width: 30%;
+    font-size: 20px;
+    padding-left: 1%;;
+    color: #009341;
+}
+
